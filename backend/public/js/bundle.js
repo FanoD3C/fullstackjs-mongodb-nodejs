@@ -75,6 +75,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/app.css */ "./frontend/styles/app.css");
 /* harmony import */ var _styles_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/bootstrap.min.css */ "./frontend/styles/bootstrap.min.css");
 alert("Esta corriendo")
+//desde aqui se requiere el codigo del css usando webpack y js 
 ;
 
 document.getElementById('book-form')
