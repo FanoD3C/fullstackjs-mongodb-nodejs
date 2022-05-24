@@ -1,8 +1,8 @@
-const { response } = require("express");
+// const { response } = require("express");
 
 // esta clase se reutilizara, la llamamos cuando sea necesario desde el DOM
 
-class BookServices {
+class ClassBookService {
     constructor(){
         this.URI_API_BOOK = "http://localhost:3000/api/books"
     }
@@ -13,6 +13,7 @@ class BookServices {
     async getBook(){
         // con fetch hacemos una peticion a mi URI, sin una conversion, es decir datos crudos
         const responseGet = await fetch(this.URI_API_BOOK);
+        
         //con responseGet.json obtenemos el dato legible en un json y ahora esta convertido
         const books = await responseGet.json();
         return books;
@@ -28,11 +29,13 @@ class BookServices {
         });
 
         const data = await responsePost.json();
+        // con este console log veemos que datos estamos capturando
+        console.log(data)
     }
 
     //borramos los datos
     async deleteBook(bookId){
-        const responseDelete = await fetch(`${this.URI_API_BOOK}/${bookId}`. {
+        const responseDelete = await fetch(`${this.URI_API_BOOK}/${bookId}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -43,3 +46,5 @@ class BookServices {
     }
 
 }
+// exportamos la clase ClassBookService del archivo BookService.js para poder usarse en otro archivo js 
+export default ClassBookService

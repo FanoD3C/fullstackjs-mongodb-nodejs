@@ -10,6 +10,7 @@ const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors');
 
 //inicializacion
 const app = express();
@@ -42,13 +43,15 @@ app.use(express.urlencoded({extended: false}));
 //interpreta los datos como json
 app.use(express.json());
 
+//
+app.use(cors());
+
 //Routes
 app.use('/api/books',require('./routes/books'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')))
 
-//
 
 // inicia el server
 app.listen(app.get('port'),() => {
