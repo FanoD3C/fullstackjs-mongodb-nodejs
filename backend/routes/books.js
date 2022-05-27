@@ -11,20 +11,29 @@ router.get('/', async (req, res) => {
 });
 
 //crear ruta api/books
-
 router.post('/', async (req,res) => {
     // recibimos los datos de respuesta del cliente
     const {title, author, isbn} = req.body;
     
+    // la imagen esta en un objeto req.file 
+    //para poder guardarlo tenemos que llamar a la propiedad .filename -> req.file.filename
+    //tenemos que agregar la ruta del proyecto en donde guardaremos la imagen
+    const imagePath = '/uploads/' + req.file.filename;
+    
     // lo guardamos en un nuevo objeto
-    const newBook = new Book({title, author, isbn});
+    // add imagePath para que guarde la imagen en el proyecto y no el backend
+    const newBook = new Book({title, author, isbn, imagePath});
     
     // con await esperamos los datos para guardarlos
     await newBook.save();
     
+    // con estos console veemos por consola el arreglo de objetos desde la terminal
     console.log(req.body)
-    res.json({message: 'Libro guardado'});    
+    console.log(req.file.filename)
+    
 
+    // deberia devolvernos como json la respuesta
+    res.json({message: 'Libro guardado'});    
 })
 
 router.delete('/', async (req, res) => {

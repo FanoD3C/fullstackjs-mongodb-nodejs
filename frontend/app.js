@@ -1,12 +1,27 @@
 alert("Esta corriendo")
-import ClassBookService from './services/BookService'
+// aqui importamos la clase getBook postBook deleteBook desde el archivo BookService del backend 
+// ahora este import lo tomamos desde UI.js
+// import ClassBookService from './services/BookService'
+
 //desde aqui se requiere el codigo del css usando webpack y js 
 import './styles/app.css'
 import './styles/bootstrap.min.css'
+
+//importamos la clase UI
+import UI from './UI';
+
+//usamos un evento que capturamos los datos que estan desde la clase UI en el archivo UI.js
+//esto indica que una vez que cargue el DOM
+document.addEventListener('DOMContentLoaded', ()=> {
+    // instanciamos la clase UI desde el archivo UI.js
+    const uiClass = new UI();
+    //utilizamos su metodo renderBooks
+    uiClass.renderBooks();
+})
+
+
 //usamos el dom del formulario
 document.getElementById('book-form')
-
-
 //indicamos el evento submit 
 .addEventListener( 'submit', e => {
     //.value guarda el valor 
@@ -25,13 +40,19 @@ document.getElementById('book-form')
 
     console.log(title + author + isbn + image)
     // cunado se instancia una clase se debe almacenar en otra variable
-    const bookService = new ClassBookService();
     
+    //instanciamos UI 
+    const uiClass = new UI();
+    uiClass.addNewBook(formData);
+    
+    // COMENTAMOS ESTE CODIGO PORQUE AHORA ESTOY USANDO LAS CLASES QUE SE IMPORTARON DESDE UI.js
     // ahora bookService tiene todos los metodos que estan en ClassBookService();
     //agregando formData en postBook vemos que datos estamos mandando a guardar despues de apretar el boton submit
-    bookService.postBoook(formData)
+    // bookService.postBoook(formData)
 
     //no se reinicia la pagina al tipear el boton
     e.preventDefault();
 });
 
+// rut 13 329 279 9
+// 
