@@ -22,12 +22,12 @@ class ClassBookService {
     // guardamos los datos
     // los datos son entregados a postBook desde los datos obtenidos en getBook
     async postBoook(book){
-        //
+        //con etse metodo podemos guardar el libro
         const responsePost = await fetch(this.URI_API_BOOK,{
             method: 'POST',
             body: book
         });
-
+        // con data esperamos la repsuesta de los datos que estan en el back
         const data = await responsePost.json();
         // con este console log veemos que datos estamos capturando
         console.log(data)
@@ -35,12 +35,14 @@ class ClassBookService {
 
     //borramos los datos
     async deleteBook(bookId){
+        //con este metodo eliminamos el libro - para eliminar el libro se debe indicar la URI y el bookid al backend 
         const responseDelete = await fetch(`${this.URI_API_BOOK}/${bookId}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'DELETE'
         })
+        //aqui esperamos la respuesta del metodo
         const dataDelete = await responseDelete.json();
         console.log(dataDelete);
     }

@@ -4,6 +4,9 @@
 import ClassBookService from "./services/BookService";
 const classBookService = new ClassBookService();
 
+//importamos el modulo timeago.js
+import {format} from 'timeago.js'
+
 class UI{
     //metodo que pinta todos los libros por pantalla
     async renderBooks(){
@@ -12,7 +15,41 @@ class UI{
         const bookRender = await classBookService.getBook();
 
         //con este DOM pintaremos en pantalla el libro
-        document.getElementById('books-cards');
+        const bookRenderContainer = document.getElementById('books-cards');
+        
+        //aseguramos que el contenedor este vacion sin ningun elemento html
+        bookRenderContainer.innertHTML = '';
+
+        //recorremos los libros qeu tenemos guardado en el backend
+        //el elemento 'book' es usado porque sera el nombre del elemento que se usara en los sgts metodos:
+        //addNewBook -> deleteBookUI -> clearBookUI
+        bookRender.forEach(book => {
+            // creamos el div en donde insertaremos los datos desde el backend
+            const div = document.createElement('div');
+            div.className = '';
+            // ahora creamos el cuerpo del cual colocaremos los datos
+            div.innerHTML = `
+                <div class="card m-2" > 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="http://localhost:3000${book.imagePath}" alt='' class="image-fluid">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-block px-2">
+                                <h3>${book.title}</h4>
+                                <p class="card-text">${book.author}</p>
+                                <h5>${book.isbn}</h5>
+                                <a href='#' class="btn btn-danger delete" _id="${book._id}"> X </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        ${format(book.created_at)}
+                </div> 
+            `;
+            // ahora insertamos las otras tarjetas faltantes desde el backend
+            bookRenderContainer.appendChild(div)
+        });
 
         // con este console log probamos el codigo por consola/terminal
         console.log(bookRender);

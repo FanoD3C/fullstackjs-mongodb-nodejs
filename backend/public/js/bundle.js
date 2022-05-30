@@ -2,6 +2,67 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/UI.js":
+/*!************************!*\
+  !*** ./frontend/UI.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_BookService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./services/BookService */ "./frontend/services/BookService.js");
+//manejo dle DOM + renderizar desde el app.js = intereactua con el navegador web
+
+// importar el BookServices
+
+const classBookService = new _services_BookService__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
+class UI{
+    //metodo que pinta todos los libros por pantalla
+    async renderBooks(){
+        //para renderizar los datos, se debe consultar primero los datos
+        //los datos se obtiene desde la clase getBook dentro del archivo BookService.js
+        const bookRender = await classBookService.getBook();
+
+        //con este DOM pintaremos en pantalla el libro
+        document.getElementById('books-cards');
+
+        // con este console log probamos el codigo por consola/terminal
+        console.log(bookRender);
+
+    }
+
+    //metodo que agrega nuevos libros por pantalla
+    async addNewBook(book){
+        await classBookService.postBoook(book);
+
+        // con este this, lo que hago es llamar al metodo para que se ejecute el codigo y resetear el formulario
+        this.clearBookForm();
+    }
+    
+    //metodo que elimina los libros por pantalla
+    deleteBookUI(){
+
+    }
+
+    //metodo que limpia el formulario
+    clearBookForm(){
+        // limpia lo que se ingreso en el formulario
+        document.getElementById('book-form').reset();
+    }
+
+    //metodo que render un texto
+    renderMessagez(){
+
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UI);
+
+/***/ }),
+
 /***/ "./frontend/services/BookService.js":
 /*!******************************************!*\
   !*** ./frontend/services/BookService.js ***!
@@ -152,23 +213,38 @@ var __webpack_exports__ = {};
   !*** ./frontend/app.js ***!
   \*************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_BookService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./services/BookService */ "./frontend/services/BookService.js");
-/* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/app.css */ "./frontend/styles/app.css");
-/* harmony import */ var _styles_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/bootstrap.min.css */ "./frontend/styles/bootstrap.min.css");
+/* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/app.css */ "./frontend/styles/app.css");
+/* harmony import */ var _styles_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/bootstrap.min.css */ "./frontend/styles/bootstrap.min.css");
+/* harmony import */ var _UI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UI */ "./frontend/UI.js");
 alert("Esta corriendo")
-;
+// aqui importamos la clase getBook postBook deleteBook desde el archivo BookService del backend 
+// ahora este import lo tomamos desde UI.js
+// import ClassBookService from './services/BookService'
+
 //desde aqui se requiere el codigo del css usando webpack y js 
+;
+
+
+//importamos la clase UI
+
+
+//usamos un evento que capturamos los datos que estan desde la clase UI en el archivo UI.js
+//esto indica que una vez que cargue el DOM
+document.addEventListener('DOMContentLoaded', ()=> {
+    // instanciamos la clase UI desde el archivo UI.js
+    const uiClass = new _UI__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    //utilizamos su metodo renderBooks
+    uiClass.renderBooks();
+})
 
 
 //usamos el dom del formulario
 document.getElementById('book-form')
-
-
 //indicamos el evento submit 
 .addEventListener( 'submit', e => {
     //.value guarda el valor 
-    const titulo = document.getElementById("titulo").value;
-    const autor = document.getElementById("autor").value;
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
     const isbn = document.getElementById("isbn").value;
     //.files guarda el archivo
     const image = document.getElementById("image").files;
@@ -176,23 +252,28 @@ document.getElementById('book-form')
     //crear un objeto con los datos necesarios para poder enviarlo, estos datos son: titulo,autor,isbn,image
     const formData = new FormData();
     formData.append('image', image[0]);
-    formData.append('titulo', title);
-    formData.append('autor', author);
+    formData.append('title', title);
+    formData.append('author', author);
     formData.append('isbn', isbn);
 
-    console.log(titulo + autor + isbn + image)
+    console.log(title + author + isbn + image)
     // cunado se instancia una clase se debe almacenar en otra variable
-    const bookService = new _services_BookService__WEBPACK_IMPORTED_MODULE_0__["default"]();
     
+    //instanciamos UI 
+    const uiClass = new _UI__WEBPACK_IMPORTED_MODULE_2__["default"]();
+    uiClass.addNewBook(formData);
+    
+    // COMENTAMOS ESTE CODIGO PORQUE AHORA ESTOY USANDO LAS CLASES QUE SE IMPORTARON DESDE UI.js
     // ahora bookService tiene todos los metodos que estan en ClassBookService();
     //agregando formData en postBook vemos que datos estamos mandando a guardar despues de apretar el boton submit
-    bookService.postBoook(formData)
+    // bookService.postBoook(formData)
 
     //no se reinicia la pagina al tipear el boton
     e.preventDefault();
 });
 
-
+// rut 13 329 279 9
+// 
 })();
 
 /******/ })()

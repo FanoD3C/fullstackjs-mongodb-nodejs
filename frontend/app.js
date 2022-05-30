@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
 document.getElementById('book-form')
 //indicamos el evento submit 
 .addEventListener( 'submit', e => {
+    
     //.value guarda el valor 
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
     const isbn = document.getElementById("isbn").value;
+    
     //.files guarda el archivo
     const image = document.getElementById("image").files;
 
@@ -54,5 +56,3 @@ document.getElementById('book-form')
     e.preventDefault();
 });
 
-// rut 13 329 279 9
-// 
