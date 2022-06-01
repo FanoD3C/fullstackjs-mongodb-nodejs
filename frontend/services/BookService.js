@@ -1,5 +1,4 @@
 // const { response } = require("express");
-
 // esta clase se reutilizara, la llamamos cuando sea necesario desde el DOM
 
 class ClassBookService {
@@ -8,7 +7,6 @@ class ClassBookService {
     }
     
     //meotodos para utilizar en esta app de libros
-
     // obtener datos
     async getBook(){
         // con fetch hacemos una peticion a mi URI, sin una conversion, es decir datos crudos
@@ -46,7 +44,7 @@ class ClassBookService {
         const dataDelete = await responseDelete.json();
         console.log(dataDelete);
     }
-
+    
 }
 // exportamos la clase ClassBookService del archivo BookService.js para poder usarse en otro archivo js 
 export default ClassBookService

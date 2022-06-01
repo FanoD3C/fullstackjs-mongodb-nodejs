@@ -32,13 +32,12 @@ class UI{
                 <div class="card m-2" > 
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="http://localhost:3000${book.imagePath}" alt='' class="image-fluid">
+                            <img src="http://localhost:3000${book.imagePath}" alt='' class="image-fluid img-center-responsive">
                         </div>
                         <div class="col-md-6">
                             <div class="card-block px-2">
                                 <h3>${book.title}</h4>
                                 <p class="card-text">${book.author}</p>
-                                <h5>${book.isbn}</h5>
                                 <a href='#' class="btn btn-danger delete" _id="${book._id}"> X </a>
                             </div>
                         </div>
@@ -59,14 +58,24 @@ class UI{
     //metodo que agrega nuevos libros por pantalla
     async addNewBook(book){
         await classBookService.postBoook(book);
-
+        
         // con este this, lo que hago es llamar al metodo para que se ejecute el codigo y resetear el formulario
         this.clearBookForm();
+        
+        // con este this lo que hago es llamar al metodo renderBook y asi traer los datos del backend
+        this.renderBooks()
     }
     
     //metodo que elimina los libros por pantalla
-    deleteBookUI(){
-
+    async deleteBookUI(bookId){
+        // con esto eliminamos el libro
+        await classBookService.deleteBook(bookId);
+        
+         // con este this, lo que hago es llamar al metodo para que se ejecute el codigo y resetear el formulario
+        this.clearBookForm();
+        
+        //con esto actualizamos el libro
+        this.renderBooks();
     }
 
     //metodo que limpia el formulario
@@ -76,8 +85,20 @@ class UI{
     }
 
     //metodo que render un texto
-    renderMessagez(){
+    renderMessage(message, colorMessage, removeSeg){
+        const div = document.createElement('div');
 
+        div.className = `alert alert-${colorMessage} message`;
+        div.appendChild(document.createTextNode(message));
+
+        const container = document.querySelector('.col-md-6')
+        const bookForm = document.getElementById('book-form');
+        // slecciona
+        container.insertBefore(div, bookForm);
+        setTimeout(() => {
+
+            document.querySelector('.message').remove();
+        }, removeSeg);
     }
 }
 

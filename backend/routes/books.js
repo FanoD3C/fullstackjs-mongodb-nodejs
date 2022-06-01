@@ -3,9 +3,12 @@ const {Router} = require('express');
 const router = Router();
 const Book = require('../models/Book');
 
+//modulo para eliminar imagenes del sistema
+const {unlink} = require('fs-extra')
+const path =require('path')
 
 router.get('/', async (req, res) => {
-    const books = await Book.find();
+    const books = await Book.find().sort('_id');
         // res.json({text: "Hola mundo desde un JSON"}));
     res.json(books);    
 });
@@ -28,17 +31,18 @@ router.post('/', async (req,res) => {
     await newBook.save();
     
     // con estos console veemos por consola el arreglo de objetos desde la terminal
-    console.log(req.body)
-    console.log(req.file.filename)
+    // console.log(req.body)
+    // console.log(req.file.filename)
     
 
     // deberia devolvernos como json la respuesta
     res.json({message: 'Libro guardado'});    
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     
-    await Book.findByIdAndDelete(req.params.id);
+    const routerDelete = await Book.findByIdAndDelete(req.params.id);
+    await unlink(path.resolve('./backend/public' + routerDelete.imagePath))
     res.json({message: 'Libro borrado'});
     
 })

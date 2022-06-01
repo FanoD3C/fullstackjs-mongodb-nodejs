@@ -46,6 +46,9 @@ document.getElementById('book-form')
     //instanciamos UI 
     const uiClass = new UI();
     uiClass.addNewBook(formData);
+
+    //mostrar por pantalla el msj
+    uiClass.renderMessage('Nuevo Libro agregado', 'success', 3000)
     
     // COMENTAMOS ESTE CODIGO PORQUE AHORA ESTOY USANDO LAS CLASES QUE SE IMPORTARON DESDE UI.js
     // ahora bookService tiene todos los metodos que estan en ClassBookService();
@@ -56,3 +59,22 @@ document.getElementById('book-form')
     e.preventDefault();
 });
 
+document.getElementById('books-cards')
+    .addEventListener('click', e => {
+        // si el elemento tiene la clase delete
+        if (e.target.classList.contains('delete')){
+            // probamos con un console
+            // console.log('eliminado');
+            // probamos con un console si tomamos el Id
+            // console.log(e.target.getAttribute('_id'));
+            
+            const uiClass = new UI();
+            uiClass.deleteBookUI(e.target.getAttribute('_id'));
+
+            uiClass.renderMessage('Libro Borrado', 'danger', 2000)
+            
+        }
+
+        // con esto evitamos que al eliminar un dato volvamos al inicio
+        e.preventDefault();
+    })
