@@ -7,7 +7,7 @@ class ClassBookService {
         // this.URI_API_BOOK = "http://localhost:3000/api/books";
 
         // production
-        this.URI_API_BOOK = "api/books";
+        this.URI_API_BOOK = "/api/books";
     }
     
     //meotodos para utilizar en esta app de libros
