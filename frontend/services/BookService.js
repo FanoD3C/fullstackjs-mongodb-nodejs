@@ -6,7 +6,7 @@ class ClassBookService {
         // development
         // this.URI_API_BOOK = "http://localhost:3000/api/books";
 
-        // production
+        // production para heorku app
         this.URI_API_BOOK = "/api/books";
     }
     
