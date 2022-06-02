@@ -21,8 +21,11 @@ module.exports = {
         filename: 'js/bundle.js'
     },
     // le indicamos a webpack que estamos en desarrollo
-    mode: 'development',
-    
+    // mode: 'development',
+
+    // no olvidar indicar para produccion para comprimir el codigo
+    mode: 'production',
+
     // modulo para cargar archivos css
     module: {
         // indica el style formato del archivo a cargar

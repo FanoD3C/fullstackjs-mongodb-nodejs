@@ -36,7 +36,7 @@ router.post('/', async (req,res) => {
     
 
     // deberia devolvernos como json la respuesta
-    res.json({message: 'Libro guardado'});    
+    res.json({'message': 'Libro guardado'});    
 })
 
 router.delete('/:id', async (req, res) => {

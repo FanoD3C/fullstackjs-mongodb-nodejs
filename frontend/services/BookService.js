@@ -3,7 +3,11 @@
 
 class ClassBookService {
     constructor(){
-        this.URI_API_BOOK = "http://localhost:3000/api/books"
+        // development
+        // this.URI_API_BOOK = "http://localhost:3000/api/books";
+
+        // production
+        this.URI_API_BOOK = "api/books";
     }
     
     //meotodos para utilizar en esta app de libros
@@ -28,7 +32,7 @@ class ClassBookService {
         // con data esperamos la repsuesta de los datos que estan en el back
         const data = await responsePost.json();
         // con este console log veemos que datos estamos capturando
-        console.log(data)
+        // console.log(data)
     }
 
     //borramos los datos
@@ -38,8 +42,8 @@ class ClassBookService {
             headers: {
                 'Content-Type': 'application/json'
             },
-            method: 'DELETE'
-        })
+            method: 'Delete'
+        });
         //aqui esperamos la respuesta del metodo
         const dataDelete = await responseDelete.json();
         console.log(dataDelete);

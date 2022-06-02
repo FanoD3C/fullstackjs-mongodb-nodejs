@@ -61,6 +61,8 @@ document.getElementById('book-form')
 
 document.getElementById('books-cards')
     .addEventListener('click', e => {
+        const uiClass = new UI();
+        
         // si el elemento tiene la clase delete
         if (e.target.classList.contains('delete')){
             // probamos con un console
@@ -68,9 +70,12 @@ document.getElementById('books-cards')
             // probamos con un console si tomamos el Id
             // console.log(e.target.getAttribute('_id'));
             
-            const uiClass = new UI();
+            // deleteBookUI viene desde la clase importada UI
             uiClass.deleteBookUI(e.target.getAttribute('_id'));
 
+
+            // los parametros de renderMessage vienen del importe de UI 
+            // estos parametros son desde UI: (message, colorMessage, removeSeg)
             uiClass.renderMessage('Libro Borrado', 'danger', 2000)
             
         }

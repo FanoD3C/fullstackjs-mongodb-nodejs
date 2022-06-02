@@ -1,2 +1,4 @@
 node_modules
 .env
+# esta carpeta public es generada mediante webpack gracias al comando del packet json -> npm run build
+backend/public
