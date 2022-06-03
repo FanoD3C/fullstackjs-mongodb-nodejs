@@ -32,7 +32,7 @@ class ClassBookService {
         // con data esperamos la repsuesta de los datos que estan en el back
         const data = await responsePost.json();
         // con este console log veemos que datos estamos capturando
-        // console.log(data)
+        console.log(data)
     }
 
     //borramos los datos
